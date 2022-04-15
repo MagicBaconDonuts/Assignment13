@@ -48,7 +48,7 @@
 			<div th:each="account:${user.accounts}">
 				<span th:text="account.accountName"></span>
 			</div>
-			<form th:action="@{/users/{userId}/accounts/{accountid}(userId=${user.userId}, accountid=${user.accounts.accountId})}"></form>
+			
 			<a href="/users" >Back</a>
 		</div>
 		
