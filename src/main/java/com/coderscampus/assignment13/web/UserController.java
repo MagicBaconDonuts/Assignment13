@@ -2,6 +2,7 @@ package com.coderscampus.assignment13.web;
 
 import java.util.Arrays;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.coderscampus.assignment13.domain.Account;
 import com.coderscampus.assignment13.domain.User;
 import com.coderscampus.assignment13.service.UserService;
 
@@ -67,8 +69,16 @@ public class UserController {
 	}
 	@GetMapping("/users/{userId}/accounts/{accountId}")
 	public String getAccounts(ModelMap model, @PathVariable Long userId, @PathVariable Long accountId) {
-		User user = userService.findById(userId);
+		User user = userService.findById(userId); 
+		String accountName = null;
+		for(int i = 0; i < user.getAccounts().size(); i++) {
+			if(user.getAccounts().get(i).getAccountId().equals(accountId)) {
+				accountName = user.getAccounts().get(i).getAccountName();
+			}
+		}
+		System.out.println(accountName);
 		model.put("user", user);
+		model.put("account", accountName);
 		return "accounts";
 	}
 }

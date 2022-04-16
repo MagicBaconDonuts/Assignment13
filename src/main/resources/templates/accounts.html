@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://thymeleaf.org">
 	<head>
-		<title>Account</title>
+		<title>Accounts</title>
 	</head>
 	<body>
-	
+		<h2>[[${account}]]</h2>
+		<form action="" method="post">
+			Account Name: <input type="text" th:field="${account}">
+		</form>
+		<hr>
+		<a th:href="@{/users/{userId}(userId=${user.userId})}">Back</a>
 	</body>
 </html>

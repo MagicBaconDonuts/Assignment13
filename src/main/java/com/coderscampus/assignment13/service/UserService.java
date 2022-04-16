@@ -65,6 +65,19 @@ public class UserService {
 			accountRepo.save(checking);
 			accountRepo.save(savings);
 		}
+		if(user.getAddress() == null) {
+			Address address = new Address();
+			address.setAddressLine1("");
+			address.setAddressLine2("");
+			address.setCity("");
+			address.setCountry("");
+			address.setZipCode("");
+			address.setUser(user);
+			address.setUserId(user.getUserId());
+			user.setAddress(address);
+		} else {
+			user.setAddress(user.getAddress());
+		}
 		
 		return userRepo.save(user);
 	}
