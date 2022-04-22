@@ -23,10 +23,10 @@
 				</div>
 				<hr>
 				<div>
-					Address Line 1: <input type="text" th:feild=${user.address.addressLine1}>
+					Address Line 1: <input type="text" th:field=${user.address.addressLine1}>
 				</div>
 				<div>
-					Address Line 2: <input type="text" th:feild=${user.address.addressLine2}>
+					Address Line 2: <input type="text" th:field=${user.address.addressLine2}>
 				</div>
 				<div>
 					City: <input type="text" th:field="${user.address.city}">
@@ -41,6 +41,10 @@
 					ZipCode: <input type="text" th:field="${user.address.zipCode}">
 				</div>
 				<div>
+					<input type="hidden" th:field="${user.accounts}">				
+				</div>
+				
+				<div>
 					<input type="submit" value="Update User Account" />
 				</div>
 			</form>
@@ -54,6 +58,42 @@
 					<span th:text="${account.accountName}"></span>
 				</a>
 			</div>
+			<form th:action="@{/users/{userId}/accounts(userId=${user.userId})}" method="post">
+				<div>
+					<input type="hidden" th:field="${user.username}" />
+				</div>
+				<div>
+					<input type="hidden" th:field="${user.password}" />
+				</div>
+				<div>
+					<input type="hidden" th:field="${user.name}" />
+				</div>
+				<hr>
+				<div>
+					<input type="hidden" th:field=${user.address.addressLine1}>
+				</div>
+				<div>
+					<input type="hidden" th:field=${user.address.addressLine2}>
+				</div>
+				<div>
+					<input type="hidden" th:field="${user.address.city}">
+				</div>
+				<div>
+					<input type="hidden" th:field="${user.address.region}">
+				</div>
+				<div>
+					<input type="hidden" th:field="${user.address.country}">
+				</div>
+				<div>
+					<input type="hidden" th:field="${user.address.zipCode}">
+				</div>
+				<div>
+					<input type="hidden" th:field="${user.accounts}">				
+				</div>
+				<div>				
+					<input type="submit" value="Create New Bank Account">
+				</div>
+			</form>
 			
 			
 			<a href="/users" >Back</a>

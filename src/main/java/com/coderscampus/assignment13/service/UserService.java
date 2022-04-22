@@ -71,11 +71,15 @@ public class UserService {
 			address.setAddressLine2("");
 			address.setCity("");
 			address.setCountry("");
+			address.setRegion("");
 			address.setZipCode("");
 			address.setUser(user);
 			address.setUserId(user.getUserId());
 			user.setAddress(address);
 		} else {
+			Address address = user.getAddress();
+			address.setUser(user);
+			address.setUserId(user.getUserId());
 			user.setAddress(user.getAddress());
 		}
 		
@@ -84,5 +88,15 @@ public class UserService {
 
 	public void delete(Long userId) {
 		userRepo.deleteById(userId);
+	}
+
+	public Long addAccount(User user) {
+		Account account = new Account();
+		Integer accountNum = user.getAccounts().size() + 1;
+		account.setAccountName("Account #" + accountNum);
+		account.getUsers().add(user);
+		user.getAccounts().add(account);
+		accountRepo.save(account);
+		return account.getAccountId();
 	}
 }

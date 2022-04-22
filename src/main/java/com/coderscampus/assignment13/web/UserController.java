@@ -1,7 +1,9 @@
 package com.coderscampus.assignment13.web;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,7 @@ public class UserController {
 			model.put("user", users.iterator().next());
 		}
 		
+		
 		return "users";
 	}
 	
@@ -80,5 +83,16 @@ public class UserController {
 		model.put("user", user);
 		model.put("account", accountName);
 		return "accounts";
+	}
+	@PostMapping("/users/{userId}/accounts")
+	public String postAccount(@PathVariable Long userId, User user) {
+		Long accountNum = userService.addAccount(user);
+		userService.saveUser(user);
+		return "redirect:/users/" + userId + "/accounts/" + accountNum;
+	}
+	@PostMapping("/users/{userId}/accounts/{accountId}")
+	public String updateAccount(@PathVariable Long userId, @PathVariable Long accountId, User user) {
+		userService.saveUser(user);
+		return "redirect:/users/" + userId + "/accounts/" + accountId;
 	}
 }
