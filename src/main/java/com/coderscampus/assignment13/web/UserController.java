@@ -72,16 +72,11 @@ public class UserController {
 	}
 	@GetMapping("/users/{userId}/accounts/{accountId}")
 	public String getAccounts(ModelMap model, @PathVariable Long userId, @PathVariable Long accountId) {
-		User user = userService.findById(userId); 
-		String accountName = null;
-		for(int i = 0; i < user.getAccounts().size(); i++) {
-			if(user.getAccounts().get(i).getAccountId().equals(accountId)) {
-				accountName = user.getAccounts().get(i).getAccountName();
-			}
-		}
-		System.out.println(accountName);
+		User user = userService.findById(userId);
+		Stream<Account> account = userService.findAccountById(accountId, user);
+		Account testAccount = account.iterator().next();
 		model.put("user", user);
-		model.put("account", accountName);
+		model.put("account", testAccount);
 		return "accounts";
 	}
 	@PostMapping("/users/{userId}/accounts")
@@ -91,8 +86,9 @@ public class UserController {
 		return "redirect:/users/" + userId + "/accounts/" + accountNum;
 	}
 	@PostMapping("/users/{userId}/accounts/{accountId}")
-	public String updateAccount(@PathVariable Long userId, @PathVariable Long accountId, User user) {
-		userService.saveUser(user);
+	public String updateAccount(@PathVariable Long userId, @PathVariable Long accountId, Account account, User user) {
+		User userUpdate = userService.saveAccount(account, user);
+		userService.saveUser(userUpdate);
 		return "redirect:/users/" + userId + "/accounts/" + accountId;
 	}
 }

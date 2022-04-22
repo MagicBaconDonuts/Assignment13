@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,5 +99,22 @@ public class UserService {
 		user.getAccounts().add(account);
 		accountRepo.save(account);
 		return account.getAccountId();
+	}
+
+	
+
+	public Stream<Account> findAccountById(Long accountId, User user) {
+		Stream<Account> account = user.getAccounts().stream().filter(x -> x.getAccountId().equals(accountId));
+		return account;
+	}
+
+	public User saveAccount(Account account, User user) {
+		//find the id where they match by currecnt account and from all accounts that teh user has and just replace old accountinfo with new account info
+		for(Account acc: user.getAccounts()) {
+			if(acc.getAccountId().equals(account.getAccountId())) {
+				acc.setAccountName(account.getAccountName());
+			}
+		}
+		return user;
 	}
 }

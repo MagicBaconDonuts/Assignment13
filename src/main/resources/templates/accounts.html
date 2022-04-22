@@ -4,14 +4,45 @@
 		<title>Accounts</title>
 	</head>
 	<body>
-		<h2>[[${account}]]</h2>
+		<h2>[[${account.accountName}]]</h2>
 		<form action="" method="post">
 		<div>
-			Account Name: <input type="text" th:field="${user.accounts}">
-		</div>
-		<div>
-			<input type="submit" value="Save Account">
-		</div>
+				<input type="hidden" th:field="${user.accounts}">				
+			</div>
+			<div>
+				Account Name: <input type="text" th:field="${account.accountName}">
+			</div>
+			<div>
+				<input type="hidden" th:field="${user.username}" />
+			</div>
+			<div>
+				<input type="hidden" th:field="${user.password}" />
+			</div>
+			<div>
+				<input type="hidden" th:field="${user.name}" />
+			</div>
+			<div>
+				<input type="hidden" th:field=${user.address.addressLine1}>
+			</div>
+			<div>
+				<input type="hidden" th:field=${user.address.addressLine2}>
+			</div>
+			<div>
+				<input type="hidden" th:field="${user.address.city}">
+			</div>
+			<div>
+				<input type="hidden" th:field="${user.address.region}">
+			</div>
+			<div>
+				<input type="hidden" th:field="${user.address.country}">
+			</div>
+			<div>
+				<input type="hidden" th:field="${user.address.zipCode}">
+			</div>
+			
+			<div>
+				<input type="submit" value="Save Account">
+			</div>
 		</form>
 		<hr>
 		<a th:href="@{/users/{userId}(userId=${user.userId})}">Back</a>

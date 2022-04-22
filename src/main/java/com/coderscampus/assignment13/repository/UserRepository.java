@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.coderscampus.assignment13.domain.Account;
 import com.coderscampus.assignment13.domain.User;
 
 @Repository
@@ -31,4 +32,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 		+ " left join fetch u.accounts"
 		+ " left join fetch u.address")
 	Set<User> findAllUsersWithAccountsAndAddresses();
+
 }
